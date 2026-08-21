@@ -18,6 +18,7 @@ import { useProgress } from '../../lib/progress'
 import { theme, useTheme } from '../../lib/theme'
 import { cn } from '../../lib/cn'
 import { Wordmark } from './Wordmark'
+import { MadeBy } from './MadeBy'
 
 const TOOLS = [
   { to: '/', label: 'Course home', icon: Compass, end: true },
@@ -104,6 +105,7 @@ export function Shell() {
               <ThemeToggle />
             </div>
           </div>
+          <MadeBy />
         </div>
       </aside>
 
