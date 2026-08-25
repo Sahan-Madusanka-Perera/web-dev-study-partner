@@ -1,4 +1,5 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { Shell } from './components/layout/Shell'
 import { HomePage } from './pages/HomePage'
 import { ModulePage } from './pages/ModulePage'
@@ -28,5 +29,10 @@ const router = createHashRouter([
 ])
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Analytics />
+    </>
+  )
 }
