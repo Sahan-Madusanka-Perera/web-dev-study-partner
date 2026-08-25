@@ -1,7 +1,7 @@
 import { useCallback, useId, useRef, useState } from 'react'
 import { ArrowRight, Play } from 'lucide-react'
 import { runPhp, type PhpResult } from '../../lib/php'
-import { Editor } from '../blocks/Editor'
+import { Editor, useEditorReset } from '../blocks/Editor'
 import { Preview } from '../blocks/Preview'
 import { LabFrame } from './LabFrame'
 import { PhpEngineGate } from './PhpEngine'
@@ -36,6 +36,7 @@ export function FormLab({
 }) {
   const [formHtml, setFormHtml] = useState(initialForm)
   const [handler, setHandler] = useState(initialHandler)
+  const [editorKey, remountEditors] = useEditorReset()
   const [result, setResult] = useState<PhpResult | null>(null)
   const [request, setRequest] = useState<{ method: string; entries: Entries } | null>(null)
   const [busy, setBusy] = useState(false)
@@ -106,16 +107,17 @@ export function FormLab({
       onReset={() => {
         setFormHtml(initialForm)
         setHandler(initialHandler)
+        remountEditors()
         setResult(null)
         setRequest(null)
       }}
     >
       <div className="grid divide-y divide-rule lg:grid-cols-2 lg:divide-x lg:divide-y-0">
         <LabPane label="form.html">
-          <Editor value={formHtml} onChange={setFormHtml} lang="html" height={height} />
+          <Editor key={editorKey} value={formHtml} onChange={setFormHtml} lang="html" height={height} />
         </LabPane>
         <LabPane label="process.php">
-          <Editor value={handler} onChange={setHandler} lang="php" height={height} />
+          <Editor key={editorKey} value={handler} onChange={setHandler} lang="php" height={height} />
         </LabPane>
       </div>
 

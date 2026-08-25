@@ -17,7 +17,11 @@ export function Blocks({ blocks, lessonId }: { blocks: Block[]; lessonId: string
   return (
     <>
       {blocks.map((b, i) => (
-        <Fragment key={i}>
+        /* Keyed by lesson as well as position: two lessons often carry the
+           same kind of block at the same index, and a bare index key lets
+           React reuse the instance, so a lab keeps the previous lesson's
+           code. Including the lesson id remounts blocks on navigation. */
+        <Fragment key={`${lessonId}:${i}`}>
           <BlockView block={b} lessonId={lessonId} index={i} />
         </Fragment>
       ))}

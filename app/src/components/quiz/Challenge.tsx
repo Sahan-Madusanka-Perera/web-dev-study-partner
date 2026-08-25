@@ -1,7 +1,7 @@
 import { useCallback, useId, useRef, useState } from 'react'
 import { Check, Lightbulb, Sparkles, Target, X } from 'lucide-react'
 import type { Check as CheckSpec, ChallengeSpec } from '../../types/content'
-import { Editor } from '../blocks/Editor'
+import { Editor, useEditorReset } from '../blocks/Editor'
 import { Preview, type PreviewHandle } from '../blocks/Preview'
 import { Button, Spinner } from '../ui'
 import { rich } from '../../lib/rich'
@@ -17,6 +17,7 @@ type Verdict = { label: string; ok: boolean }
 export function Challenge({ spec }: { spec: ChallengeSpec }) {
   const [code, setCode] = useState(spec.starter)
   const [css, setCss] = useState(spec.starterCss ?? '')
+  const [editorKey, remountEditors] = useEditorReset()
   const [verdicts, setVerdicts] = useState<Verdict[] | null>(null)
   const [hintsShown, setHintsShown] = useState(0)
   const [solved, setSolved] = useState(false)
@@ -86,9 +87,9 @@ export function Challenge({ spec }: { spec: ChallengeSpec }) {
           {spec.lang === 'css' && (
             <>
               <PaneLabel>index.html — read only</PaneLabel>
-              <Editor value={code} lang="html" height={140} readOnly />
+              <Editor key={`html-${editorKey}`} value={code} lang="html" height={140} readOnly />
               <PaneLabel>style.css — your work</PaneLabel>
-              <Editor value={css} onChange={setCss} lang="css" height={200} />
+              <Editor key={`css-${editorKey}`} value={css} onChange={setCss} lang="css" height={200} />
             </>
           )}
           {spec.lang !== 'css' && (
@@ -96,7 +97,7 @@ export function Challenge({ spec }: { spec: ChallengeSpec }) {
               <PaneLabel>
                 {spec.lang === 'php' ? 'solution.php' : spec.lang === 'sql' ? 'query.sql' : 'index.html'}
               </PaneLabel>
-              <Editor value={code} onChange={setCode} lang={spec.lang} height={280} />
+              <Editor key={editorKey} value={code} onChange={setCode} lang={spec.lang} height={280} />
             </>
           )}
         </div>
@@ -180,6 +181,7 @@ export function Challenge({ spec }: { spec: ChallengeSpec }) {
             onClick={() => {
               setCode(spec.solution)
               if (spec.solutionCss) setCss(spec.solutionCss)
+              remountEditors()
               setVerdicts(null)
             }}
           >

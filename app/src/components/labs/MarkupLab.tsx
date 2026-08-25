@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Editor } from '../blocks/Editor'
+import { Editor, useEditorReset } from '../blocks/Editor'
 import { Preview } from '../blocks/Preview'
 import { CopyButton } from '../blocks/CodePanel'
 import { LabFrame } from './LabFrame'
@@ -17,11 +17,15 @@ export function HtmlLab({
   note?: string
 }) {
   const [code, setCode] = useState(initial)
+  const [editorKey, remountEditors] = useEditorReset()
   return (
     <LabFrame
       title={title ?? 'Edit the HTML — the page updates as you type'}
       note={note}
-      onReset={() => setCode(initial)}
+      onReset={() => {
+        setCode(initial)
+        remountEditors()
+      }}
       toolbar={
         <span className="text-[var(--code-dim)]">
           <CopyButton text={code} />
@@ -30,7 +34,9 @@ export function HtmlLab({
       panes={[
         {
           label: 'index.html',
-          content: <Editor value={code} onChange={setCode} lang="html" height={height} />,
+          content: (
+            <Editor key={editorKey} value={code} onChange={setCode} lang="html" height={height} />
+          ),
         },
         {
           label: 'What the browser shows',
@@ -63,6 +69,7 @@ export function CssLab({
 }) {
   const [html, setHtml] = useState(initialHtml)
   const [css, setCss] = useState(initialCss)
+  const [editorKey, remountEditors] = useEditorReset()
 
   const panes = [
     ...(hideHtml
@@ -70,12 +77,16 @@ export function CssLab({
       : [
           {
             label: 'index.html',
-            content: <Editor value={html} onChange={setHtml} lang="html" height={height} />,
+            content: (
+              <Editor key={editorKey} value={html} onChange={setHtml} lang="html" height={height} />
+            ),
           },
         ]),
     {
       label: 'style.css',
-      content: <Editor value={css} onChange={setCss} lang="css" height={height} />,
+      content: (
+        <Editor key={editorKey} value={css} onChange={setCss} lang="css" height={height} />
+      ),
     },
     {
       label: 'Result',
@@ -95,6 +106,7 @@ export function CssLab({
       onReset={() => {
         setHtml(initialHtml)
         setCss(initialCss)
+        remountEditors()
       }}
       toolbar={
         <span className="text-[var(--code-dim)]">
