@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
 import { EditorView } from '@codemirror/view'
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
@@ -47,22 +47,6 @@ function extensionsFor(lang: Lang) {
     default:
       return []
   }
-}
-
-/**
- * A remount key for an editor whose code is replaced programmatically —
- * Reset, or "Show one solution".
- *
- * CodeMirror is controlled through its `value` prop, but the wrapper defers
- * external value changes while the student is mid-keystroke. Press Reset in
- * the second after typing and the change is swallowed: React state holds the
- * starting code while the editor still shows the edit, and because the state
- * is already correct no later render re-syncs them — every further press of
- * Reset does nothing. Bumping the key rebuilds the document outright.
- */
-export function useEditorReset() {
-  const [key, setKey] = useState(0)
-  return [key, useCallback(() => setKey((n) => n + 1), [])] as const
 }
 
 export function Editor({

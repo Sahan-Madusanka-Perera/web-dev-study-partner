@@ -67,8 +67,8 @@ export const m4: Module = {
             lab: 'html',
             title: 'href, target and title',
             html: `<p>
-  <a href="https://www.w3schools.com"
-     title="A link to the w3schools website!">
+  <a href="https://info.cern.ch"
+     title="The first website ever published, at CERN">
     Hover over me, then click
   </a>
 </p>
@@ -132,12 +132,12 @@ export const m4: Module = {
             lab: 'html',
             title: 'An image link and a button link',
             html: `<p>An image as a link:</p>
-<a href="https://www.google.com">
+<a href="https://info.cern.ch">
   <img src="media/bird.jpg" alt="A blue bird on a branch" width="180">
 </a>
 
 <p>A button as a link:</p>
-<a href="https://www.google.com">
+<a href="https://info.cern.ch">
   <button>Click Me</button>
 </a>`,
             height: 320,

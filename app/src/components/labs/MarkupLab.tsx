@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Editor, useEditorReset } from '../blocks/Editor'
+import { Editor } from '../blocks/Editor'
+import { useResetKey } from '../../lib/reset'
 import { Preview } from '../blocks/Preview'
 import { CopyButton } from '../blocks/CodePanel'
 import { LabFrame } from './LabFrame'
@@ -17,14 +18,14 @@ export function HtmlLab({
   note?: string
 }) {
   const [code, setCode] = useState(initial)
-  const [editorKey, remountEditors] = useEditorReset()
+  const [resetKey, remountPanes] = useResetKey()
   return (
     <LabFrame
       title={title ?? 'Edit the HTML — the page updates as you type'}
       note={note}
       onReset={() => {
         setCode(initial)
-        remountEditors()
+        remountPanes()
       }}
       toolbar={
         <span className="text-[var(--code-dim)]">
@@ -35,14 +36,14 @@ export function HtmlLab({
         {
           label: 'index.html',
           content: (
-            <Editor key={editorKey} value={code} onChange={setCode} lang="html" height={height} />
+            <Editor key={resetKey} value={code} onChange={setCode} lang="html" height={height} />
           ),
         },
         {
           label: 'What the browser shows',
           content: (
             <div className="h-full bg-white" style={{ minHeight: height }}>
-              <Preview html={code} minHeight={height} />
+              <Preview key={resetKey} html={code} minHeight={height} />
             </div>
           ),
         },
@@ -69,7 +70,7 @@ export function CssLab({
 }) {
   const [html, setHtml] = useState(initialHtml)
   const [css, setCss] = useState(initialCss)
-  const [editorKey, remountEditors] = useEditorReset()
+  const [resetKey, remountPanes] = useResetKey()
 
   const panes = [
     ...(hideHtml
@@ -78,14 +79,14 @@ export function CssLab({
           {
             label: 'index.html',
             content: (
-              <Editor key={editorKey} value={html} onChange={setHtml} lang="html" height={height} />
+              <Editor key={resetKey} value={html} onChange={setHtml} lang="html" height={height} />
             ),
           },
         ]),
     {
       label: 'style.css',
       content: (
-        <Editor key={editorKey} value={css} onChange={setCss} lang="css" height={height} />
+        <Editor key={resetKey} value={css} onChange={setCss} lang="css" height={height} />
       ),
     },
     {
@@ -93,7 +94,7 @@ export function CssLab({
       grow: true,
       content: (
         <div className="h-full bg-white" style={{ minHeight: height }}>
-          <Preview html={html} css={css} minHeight={height} />
+          <Preview key={resetKey} html={html} css={css} minHeight={height} />
         </div>
       ),
     },
@@ -106,7 +107,7 @@ export function CssLab({
       onReset={() => {
         setHtml(initialHtml)
         setCss(initialCss)
-        remountEditors()
+        remountPanes()
       }}
       toolbar={
         <span className="text-[var(--code-dim)]">

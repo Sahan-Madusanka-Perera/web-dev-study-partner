@@ -1,7 +1,8 @@
 import { useCallback, useId, useRef, useState } from 'react'
 import { ArrowRight, Play } from 'lucide-react'
 import { runPhp, type PhpResult } from '../../lib/php'
-import { Editor, useEditorReset } from '../blocks/Editor'
+import { Editor } from '../blocks/Editor'
+import { useResetKey } from '../../lib/reset'
 import { Preview } from '../blocks/Preview'
 import { LabFrame } from './LabFrame'
 import { PhpEngineGate } from './PhpEngine'
@@ -36,7 +37,7 @@ export function FormLab({
 }) {
   const [formHtml, setFormHtml] = useState(initialForm)
   const [handler, setHandler] = useState(initialHandler)
-  const [editorKey, remountEditors] = useEditorReset()
+  const [resetKey, remountPanes] = useResetKey()
   const [result, setResult] = useState<PhpResult | null>(null)
   const [request, setRequest] = useState<{ method: string; entries: Entries } | null>(null)
   const [busy, setBusy] = useState(false)
@@ -107,17 +108,17 @@ export function FormLab({
       onReset={() => {
         setFormHtml(initialForm)
         setHandler(initialHandler)
-        remountEditors()
+        remountPanes()
         setResult(null)
         setRequest(null)
       }}
     >
       <div className="grid divide-y divide-rule lg:grid-cols-2 lg:divide-x lg:divide-y-0">
         <LabPane label="form.html">
-          <Editor key={editorKey} value={formHtml} onChange={setFormHtml} lang="html" height={height} />
+          <Editor key={resetKey} value={formHtml} onChange={setFormHtml} lang="html" height={height} />
         </LabPane>
         <LabPane label="process.php">
-          <Editor key={editorKey} value={handler} onChange={setHandler} lang="php" height={height} />
+          <Editor key={resetKey} value={handler} onChange={setHandler} lang="php" height={height} />
         </LabPane>
       </div>
 
@@ -125,6 +126,7 @@ export function FormLab({
         <LabPane label="The form in the browser" className="border-b border-rule lg:border-b-0">
           <div className="bg-white">
             <Preview
+              key={resetKey}
               html={formHtml}
               minHeight={170}
               onRender={wire}
@@ -138,7 +140,7 @@ export function FormLab({
             {request ? (
               <>
                 <RequestReadout method={request.method} entries={request.entries} />
-                <PhpOutput result={result} busy={busy} minHeight={150} />
+                <PhpOutput key={resetKey} result={result} busy={busy} minHeight={150} />
               </>
             ) : (
               <div className="grid place-items-center px-6 py-10 text-center">

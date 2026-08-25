@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Database, Play, RefreshCw, Table2, TriangleAlert } from 'lucide-react'
 import { describeDatabase, runSqlViaPhp, seedDatabases, type SqlOutcome } from '../../lib/php'
-import { Editor, useEditorReset } from '../blocks/Editor'
+import { Editor } from '../blocks/Editor'
+import { useResetKey } from '../../lib/reset'
 import { Button, Spinner } from '../ui'
 import { LabFrame } from './LabFrame'
 import { PhpEngineGate, usePhpStatus } from './PhpEngine'
@@ -35,7 +36,7 @@ export function SqlLab({
   allowDbSwitch?: boolean
 }) {
   const [sql, setSql] = useState(initial)
-  const [editorKey, remountEditors] = useEditorReset()
+  const [resetKey, remountPanes] = useResetKey()
   const [db, setDb] = useState(initialDb)
   const [out, setOut] = useState<SqlOutcome[] | null>(null)
   const [busy, setBusy] = useState(false)
@@ -71,7 +72,7 @@ export function SqlLab({
       note={note}
       onReset={() => {
         setSql(initial)
-        remountEditors()
+        remountPanes()
         setOut(null)
       }}
       toolbar={
@@ -135,7 +136,7 @@ export function SqlLab({
                 }
               }}
             >
-              <Editor key={editorKey} value={sql} onChange={setSql} lang="sql" height={height} />
+              <Editor key={resetKey} value={sql} onChange={setSql} lang="sql" height={height} />
             </div>
             <ResultGrids out={out} busy={busy} />
           </div>

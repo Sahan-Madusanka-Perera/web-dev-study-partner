@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Play, TriangleAlert } from 'lucide-react'
 import { runPhp, type PhpResult } from '../../lib/php'
-import { Editor, useEditorReset } from '../blocks/Editor'
+import { Editor } from '../blocks/Editor'
+import { useResetKey } from '../../lib/reset'
 import { Preview } from '../blocks/Preview'
 import { CopyButton } from '../blocks/CodePanel'
 import { Button, Spinner } from '../ui'
@@ -29,7 +30,7 @@ export function PhpLab({
   onResult?: (result: PhpResult) => void
 }) {
   const [code, setCode] = useState(initial)
-  const [editorKey, remountEditors] = useEditorReset()
+  const [resetKey, remountPanes] = useResetKey()
   const [result, setResult] = useState<PhpResult | null>(null)
   const [busy, setBusy] = useState(false)
   const status = usePhpStatus()
@@ -88,7 +89,7 @@ export function PhpLab({
       note={note}
       onReset={() => {
         setCode(initial)
-        remountEditors()
+        remountPanes()
         void run(initial)
       }}
       toolbar={
@@ -119,7 +120,7 @@ export function PhpLab({
                 }
               }}
             >
-              <Editor key={editorKey} value={code} onChange={setCode} lang="php" height={height} />
+              <Editor key={resetKey} value={code} onChange={setCode} lang="php" height={height} />
             </div>
           ),
         },
@@ -128,7 +129,13 @@ export function PhpLab({
           grow: true,
           content: (
             <PhpEngineGate>
-              <PhpOutput result={result} busy={busy} minHeight={height} showBrowserToggle={showBrowserToggle} />
+              <PhpOutput
+                key={resetKey}
+                result={result}
+                busy={busy}
+                minHeight={height}
+                showBrowserToggle={showBrowserToggle}
+              />
             </PhpEngineGate>
           ),
         },

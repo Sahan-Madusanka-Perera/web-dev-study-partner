@@ -768,9 +768,9 @@ export const m3LessonsB: Lesson[] = [
 </div>
 
 <p>
-  <a href="https://www.w3schools.com"
-     title="A link to the w3schools website!">
-    w3schools
+  <a href="https://info.cern.ch"
+     title="The first website ever published, at CERN">
+    The first website
   </a>
 </p>`,
           height: 170,
