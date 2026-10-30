@@ -5,7 +5,6 @@ import { modules } from '../data/course'
 import { allLessons, lessonPath, totalLessons } from '../lib/course'
 import { progress, streakOf, useProgress } from '../lib/progress'
 import { Button } from '../components/ui'
-import { ThemeToggle } from '../components/layout/Shell'
 import { cn } from '../lib/cn'
 
 export function ProgressPage() {
@@ -45,12 +44,9 @@ export function ProgressPage() {
             so export a copy before you do.
           </p>
         </div>
-        <span className="hidden lg:block">
-          <ThemeToggle />
-        </span>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-rule bg-surface p-6">
+      <div className="mt-8 rounded-[1.75rem] border border-rule bg-surface p-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[0.7rem] tracking-[0.12em] text-ink-3 uppercase">
@@ -92,7 +88,7 @@ export function ProgressPage() {
 
         <div className="mt-5 h-2.5 overflow-hidden rounded-full bg-surface-sunk">
           <div
-            className="h-full rounded-full bg-accent transition-[width] duration-700"
+            className="h-full rounded-full bg-accent-bright transition-[width] duration-700"
             style={{ width: `${pct}%`, transitionTimingFunction: 'var(--ease-out-quint)' }}
           />
         </div>
@@ -108,7 +104,7 @@ export function ProgressPage() {
               <li key={m.id}>
                 <Link
                   to={`/m/${m.slug}`}
-                  className="group flex items-center gap-4 rounded-xl border border-rule bg-surface px-4 py-3 transition-colors hover:border-rule-strong"
+                  className="group flex items-center gap-4 rounded-2xl border border-rule bg-surface px-4 py-3 transition-colors hover:border-rule-strong"
                 >
                   <span
                     className={cn(
@@ -126,7 +122,7 @@ export function ProgressPage() {
                     </span>
                     <span className="mt-1.5 block h-1.5 w-full overflow-hidden rounded-full bg-surface-sunk">
                       <span
-                        className="block h-full rounded-full bg-accent transition-[width] duration-700"
+                        className="block h-full rounded-full bg-accent-bright transition-[width] duration-700"
                         style={{ width: `${p}%` }}
                       />
                     </span>
@@ -144,7 +140,7 @@ export function ProgressPage() {
       {doneCount > 0 && (
         <section className="mt-10">
           <h2 className="font-display text-[1.4rem] font-semibold text-ink">Recently finished</h2>
-          <ul className="mt-3 divide-y divide-rule rounded-xl border border-rule bg-surface">
+          <ul className="mt-3 divide-y divide-rule rounded-2xl border border-rule bg-surface">
             {allLessons
               .filter((r) => state.done[r.lesson.id])
               .sort((a, b) => state.done[b.lesson.id] - state.done[a.lesson.id])
@@ -169,7 +165,7 @@ export function ProgressPage() {
         </section>
       )}
 
-      <section className="mt-10 rounded-2xl border border-rule bg-surface p-6">
+      <section className="mt-10 rounded-[1.75rem] border border-rule bg-surface p-6">
         <h2 className="font-display text-[1.3rem] font-semibold text-ink">Move or clear it</h2>
         <p className="mt-2 max-w-[64ch] text-[0.95rem] leading-relaxed text-ink-2">
           Export writes a small JSON file. Import it on another device — the school computer, a

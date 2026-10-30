@@ -4,7 +4,6 @@ import { CssLab } from '../components/labs/MarkupLab'
 import { PhpLab } from '../components/labs/PhpLab'
 import { SqlLab } from '../components/labs/SqlLab'
 import { FormLab } from '../components/labs/FormLab'
-import { ThemeToggle } from '../components/layout/Shell'
 import { cn } from '../lib/cn'
 
 const TABS = [
@@ -147,9 +146,6 @@ export function PlaygroundPage() {
             what the browser or the server does about it.
           </p>
         </div>
-        <span className="hidden lg:block">
-          <ThemeToggle />
-        </span>
       </div>
 
       <div className="mt-7 flex flex-wrap gap-1.5 border-b border-rule pb-3">
@@ -160,9 +156,9 @@ export function PlaygroundPage() {
               key={t.key}
               onClick={() => setTab(t.key)}
               className={cn(
-                'flex items-center gap-2 rounded-lg border px-3.5 py-2 text-[0.9rem] font-medium transition-colors',
+                'flex items-center gap-2 rounded-full border px-4 py-2 font-display text-[0.95rem] font-medium transition-colors',
                 tab === t.key
-                  ? 'border-ink bg-brand text-brand-on'
+                  ? 'border-violet bg-violet text-white'
                   : 'border-rule bg-surface text-ink-2 hover:border-rule-strong hover:text-ink',
               )}
             >

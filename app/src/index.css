@@ -1,11 +1,12 @@
 @import 'tailwindcss';
 
 /* ─────────────────────────────────────────────────────────────
-   Studio Terminal — warm paper for reading, ink-navy for code.
+   Lavender Studio — soft cards on a charcoal frame, periwinkle
+   for the course, warm orange for momentum. Ink-navy for code.
    ───────────────────────────────────────────────────────────── */
 
 @theme {
-  --font-display: 'Newsreader', ui-serif, Georgia, serif;
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
@@ -15,68 +16,80 @@
 
 :root,
 [data-theme='light'] {
-  --paper: #faf7f2;
-  --paper-edge: #f4f0e8;
+  --paper: #f6f6fb;
+  --paper-edge: #efeff7;
   --surface: #ffffff;
-  --surface-sunk: #f2ece2;
+  --surface-sunk: #eeeef5;
   --surface-raise: #ffffff;
 
-  --ink: #16192b;
-  --ink-2: #4d5266;
-  --ink-3: #7b8095;
+  --ink: #1f2027;
+  --ink-2: #53556a;
+  --ink-3: #85879c;
 
-  --rule: #e6e0d5;
-  --rule-strong: #d3cbbc;
+  --rule: #e5e5ef;
+  --rule-strong: #d1d1df;
 
-  --brand: #232842;
-  --brand-hover: #171b2e;
-  --brand-on: #faf7f2;
-  --brand-tint: #eceaf3;
+  --brand: #24252c;
+  --brand-hover: #14151a;
+  --brand-on: #ffffff;
+  --brand-tint: #ececfb;
 
-  --accent: #a97613;
-  --accent-bright: #e0a63c;
-  --accent-on: #2a1e05;
-  --accent-tint: #fbf0d9;
+  --violet: #7d80e8;
+  --violet-ink: #5558c8;
+  --violet-soft: #b9bbf7;
+  --violet-tint: #e8e8fd;
+  --violet-on: #ffffff;
 
-  --ok: #146c43;
-  --ok-tint: #e4f2ea;
+  --accent: #b9531a;
+  --accent-bright: #ff9b5e;
+  --accent-on: #2b1406;
+  --accent-tint: #ffeadc;
+
+  --ok: #1d7a4c;
+  --ok-tint: #e2f4ea;
   --warn: #9a6212;
   --warn-tint: #fbf0d9;
-  --bad: #b02525;
-  --bad-tint: #fbe9e9;
+  --bad: #c0352f;
+  --bad-tint: #fde9e7;
 
-  --shadow-sm: 0 1px 2px rgb(22 25 43 / 0.06), 0 2px 6px -2px rgb(22 25 43 / 0.08);
-  --shadow-md: 0 2px 4px rgb(22 25 43 / 0.05), 0 10px 24px -8px rgb(22 25 43 / 0.14);
-  --shadow-lg: 0 4px 8px rgb(22 25 43 / 0.05), 0 24px 56px -16px rgb(22 25 43 / 0.22);
+  --shadow-sm: 0 1px 2px rgb(31 32 39 / 0.05), 0 2px 8px -2px rgb(31 32 39 / 0.07);
+  --shadow-md: 0 2px 4px rgb(31 32 39 / 0.04), 0 12px 28px -10px rgb(31 32 39 / 0.14);
+  --shadow-lg: 0 4px 8px rgb(31 32 39 / 0.05), 0 28px 60px -18px rgb(31 32 39 / 0.24);
 
-  --selection: #f6dfa8;
-  --selection-ink: #241a04;
+  --selection: #d6d7fb;
+  --selection-ink: #1a1b3a;
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --paper: #0e1018;
-  --paper-edge: #12151f;
-  --surface: #171b26;
-  --surface-sunk: #0a0c13;
-  --surface-raise: #1d222f;
+  --paper: #16171c;
+  --paper-edge: #1a1b21;
+  --surface: #202128;
+  --surface-sunk: #121317;
+  --surface-raise: #272830;
 
-  --ink: #ece7dd;
-  --ink-2: #a9adbd;
-  --ink-3: #7a7f92;
+  --ink: #f0f0f6;
+  --ink-2: #b1b3c4;
+  --ink-3: #7f8195;
 
-  --rule: #262b39;
-  --rule-strong: #3a4152;
+  --rule: #2c2d37;
+  --rule-strong: #3e404d;
 
-  --brand: #ece7dd;
+  --brand: #f0f0f6;
   --brand-hover: #ffffff;
-  --brand-on: #14172a;
-  --brand-tint: #1e2331;
+  --brand-on: #17181d;
+  --brand-tint: #26273a;
 
-  --accent: #e5b45c;
-  --accent-bright: #f3c774;
-  --accent-on: #241a04;
-  --accent-tint: #2a2313;
+  --violet: #8e91f2;
+  --violet-ink: #b4b6ff;
+  --violet-soft: #4b4d8f;
+  --violet-tint: #26274a;
+  --violet-on: #ffffff;
+
+  --accent: #ffa36c;
+  --accent-bright: #ffa36c;
+  --accent-on: #2b1406;
+  --accent-tint: #35231a;
 
   --ok: #5bc38b;
   --ok-tint: #13251c;
@@ -89,8 +102,8 @@
   --shadow-md: 0 2px 4px rgb(0 0 0 / 0.4), 0 10px 24px -8px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.4), 0 24px 56px -16px rgb(0 0 0 / 0.7);
 
-  --selection: #4b3a12;
-  --selection-ink: #ffeec7;
+  --selection: #3a3c78;
+  --selection-ink: #ffffff;
   color-scheme: dark;
 }
 
@@ -119,6 +132,13 @@
   --lang-sql: #16a394;
   --lang-js: #d8a52a;
 
+  /* The charcoal frame around the app — the same in both themes. */
+  --chrome: #222329;
+  --chrome-2: #2e2f37;
+  --chrome-ink: #f3f3f8;
+  --chrome-dim: #9a9cad;
+  --header-h: 4.75rem;
+
   --sidebar-w: 19rem;
   --reading: 44rem;
   --bleed: 62rem;
@@ -139,6 +159,15 @@
   --color-brand-hover: var(--brand-hover);
   --color-brand-on: var(--brand-on);
   --color-brand-tint: var(--brand-tint);
+  --color-violet: var(--violet);
+  --color-violet-ink: var(--violet-ink);
+  --color-violet-soft: var(--violet-soft);
+  --color-violet-tint: var(--violet-tint);
+  --color-violet-on: var(--violet-on);
+  --color-chrome: var(--chrome);
+  --color-chrome-2: var(--chrome-2);
+  --color-chrome-ink: var(--chrome-ink);
+  --color-chrome-dim: var(--chrome-dim);
   --color-accent: var(--accent);
   --color-accent-bright: var(--accent-bright);
   --color-accent-on: var(--accent-on);
@@ -270,6 +299,15 @@
     mix-blend-mode: multiply;
   }
   [data-theme='dark'] .grain::before { mix-blend-mode: screen; opacity: 0.35; }
+
+  /* Diagonal hatching, as on the "today" bar of the activity chart. */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      135deg,
+      color-mix(in oklab, currentColor 55%, transparent) 0 3px,
+      transparent 3px 7px
+    );
+  }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */

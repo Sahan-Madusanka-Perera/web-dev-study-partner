@@ -2,12 +2,14 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'reac
 import { Link } from 'react-router-dom'
 import { cn } from '../lib/cn'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'dark' | 'accent'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'dark' | 'accent' | 'violet'
 type Size = 'sm' | 'md'
 
 const VARIANT: Record<Variant, string> = {
   primary:
     'bg-brand text-brand-on hover:bg-brand-hover disabled:bg-rule-strong disabled:text-ink-3',
+  violet:
+    'bg-violet text-violet-on hover:brightness-105 disabled:bg-rule-strong disabled:text-ink-3',
   accent:
     'bg-accent-bright text-accent-on hover:brightness-105 disabled:bg-rule-strong disabled:text-ink-3',
   secondary:
@@ -17,8 +19,8 @@ const VARIANT: Record<Variant, string> = {
 }
 
 const SIZE: Record<Size, string> = {
-  sm: 'h-8 gap-1.5 px-2.5 text-[0.78rem]',
-  md: 'h-10 gap-2 px-4 text-[0.88rem]',
+  sm: 'h-8 gap-1.5 px-3 text-[0.8rem]',
+  md: 'h-10 gap-2 px-4.5 text-[0.92rem]',
 }
 
 export function Button({
@@ -39,7 +41,7 @@ export function Button({
 }
 
 const BASE =
-  'inline-flex shrink-0 items-center justify-center rounded-lg font-medium whitespace-nowrap transition-all duration-150 select-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70'
+  'inline-flex shrink-0 items-center justify-center rounded-full font-display font-medium whitespace-nowrap transition-all duration-150 select-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70'
 
 /** A router link that looks and behaves like a button. */
 export function LinkButton({
@@ -72,7 +74,7 @@ export function Card({
   as?: 'div' | 'section' | 'article' | 'li'
 }) {
   return (
-    <As className={cn('rounded-xl border border-rule bg-surface', className)}>{children}</As>
+    <As className={cn('rounded-3xl border border-rule bg-surface', className)}>{children}</As>
   )
 }
 
@@ -129,5 +131,49 @@ export function Spinner({ className }: { className?: string }) {
       role="status"
       aria-label="Working"
     />
+  )
+}
+
+/** A thin progress ring, for the header badge and the hero's start button. */
+export function Ring({
+  value,
+  size = 44,
+  stroke = 3,
+  track = 'var(--chrome-2)',
+  fill = 'var(--accent-bright)',
+  className,
+  children,
+}: {
+  /** 0 to 1 */
+  value: number
+  size?: number
+  stroke?: number
+  track?: string
+  fill?: string
+  className?: string
+  children?: ReactNode
+}) {
+  const r = (size - stroke) / 2
+  const c = 2 * Math.PI * r
+  return (
+    <span className={cn('relative inline-grid shrink-0 place-items-center', className)} style={{ width: size, height: size }}>
+      <svg viewBox={`0 0 ${size} ${size}`} className="absolute inset-0 -rotate-90" aria-hidden>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={track} strokeWidth={stroke} />
+        {value > 0 && <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={fill}
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - Math.max(0, Math.min(1, value)))}
+          className="transition-[stroke-dashoffset] duration-700"
+          style={{ transitionTimingFunction: 'var(--ease-out-quint)' }}
+        />}
+      </svg>
+      {children}
+    </span>
   )
 }

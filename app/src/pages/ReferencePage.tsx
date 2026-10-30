@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
 import { TagExplorerWidget } from '../components/widgets/HtmlWidgets'
 import { cssReference, glossary, phpReference, sqlReference, type RefEntry } from '../data/reference'
-import { ThemeToggle } from '../components/layout/Shell'
 import { CodeView } from '../components/blocks/CodePanel'
 import type { Lang } from '../types/content'
 import { cn } from '../lib/cn'
@@ -37,9 +36,6 @@ export function ReferencePage() {
             place. Keep it open beside your work.
           </p>
         </div>
-        <span className="hidden lg:block">
-          <ThemeToggle />
-        </span>
       </div>
 
       <div className="mt-7 flex flex-wrap gap-1.5 border-b border-rule pb-3">
@@ -50,7 +46,7 @@ export function ReferencePage() {
             className={cn(
               'flex items-center gap-2 rounded-lg border px-3.5 py-2 text-[0.88rem] font-medium transition-colors',
               tab === t.key
-                ? 'border-ink bg-brand text-brand-on'
+                ? 'border-violet bg-violet text-white'
                 : 'border-rule bg-surface text-ink-2 hover:border-rule-strong hover:text-ink',
             )}
           >
@@ -113,7 +109,7 @@ function RefTable({ entries, lang }: { entries: RefEntry[]; lang: Lang }) {
           <h2 className="mb-2 font-mono text-[0.7rem] tracking-[0.12em] text-ink-3 uppercase">
             {group}
           </h2>
-          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+          <ul className="divide-y divide-rule overflow-hidden rounded-2xl border border-rule bg-surface">
             {items.map((e) => (
               <li key={e.name} className="px-4 py-3">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
