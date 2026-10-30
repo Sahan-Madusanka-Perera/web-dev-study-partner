@@ -3,7 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check, Clock, Target } from 'lucide-react'
 import { findLesson, lessonPath, neighbours } from '../lib/course'
 import { Blocks, slug } from '../components/blocks/Blocks'
-import { Crumb, ThemeToggle } from '../components/layout/Shell'
+import { Crumb } from '../components/layout/Shell'
 import { Button, LinkButton } from '../components/ui'
 import { progress, useProgress } from '../lib/progress'
 import { warmPhp } from '../lib/php'
@@ -59,7 +59,7 @@ export function LessonPage() {
 
   return (
     <>
-      <div className="sticky top-0 z-30 border-b border-rule bg-paper/85 backdrop-blur-md">
+      <div className="sticky top-[var(--header-h)] z-30 border-b border-rule bg-paper/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-[92rem] items-center gap-3 px-5 py-2.5 sm:px-8">
           <Crumb
             items={[
@@ -68,9 +68,6 @@ export function LessonPage() {
               { label: `Lesson ${module.lessons.indexOf(lesson) + 1}` },
             ]}
           />
-          <span className="ml-auto hidden lg:block">
-            <ThemeToggle />
-          </span>
         </div>
         <div
           className="h-[2px] origin-left bg-accent transition-transform duration-150"
@@ -194,7 +191,7 @@ export function LessonPage() {
         </article>
 
         {showRail && (
-          <aside className="sticky top-24 hidden h-fit w-56 shrink-0 min-[1400px]:block">
+          <aside className="sticky top-[calc(var(--header-h)+5rem)] hidden h-fit w-56 shrink-0 min-[1400px]:block">
             <p className="mb-2 font-mono text-[0.66rem] tracking-[0.12em] text-ink-3 uppercase">
               On this page
             </p>

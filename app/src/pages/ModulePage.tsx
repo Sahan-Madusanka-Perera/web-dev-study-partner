@@ -3,7 +3,7 @@ import { ArrowRight, Check, Clock } from 'lucide-react'
 import { findModule } from '../lib/course'
 import { lessonPath, moduleMinutes } from '../lib/course'
 import { useProgress } from '../lib/progress'
-import { Crumb, ThemeToggle } from '../components/layout/Shell'
+import { Crumb } from '../components/layout/Shell'
 import { LinkButton } from '../components/ui'
 import { cn } from '../lib/cn'
 
@@ -28,9 +28,6 @@ export function ModulePage() {
     <div className="mx-auto max-w-[62rem] px-5 pt-6 pb-24 sm:px-8">
       <div className="flex items-center gap-3">
         <Crumb items={[{ label: 'Course home', to: '/' }, { label: `Competency ${module.competency}` }]} />
-        <span className="ml-auto hidden lg:block">
-          <ThemeToggle />
-        </span>
       </div>
 
       <header className="mt-8">
@@ -41,7 +38,7 @@ export function ModulePage() {
           {module.blurb}
         </p>
 
-        <div className="mt-5 rounded-xl border border-rule bg-surface px-4 py-3.5">
+        <div className="mt-5 rounded-2xl border border-rule bg-surface px-4 py-3.5">
           <p className="font-mono text-[0.68rem] tracking-[0.12em] text-ink-3 uppercase">
             By the end you can
           </p>

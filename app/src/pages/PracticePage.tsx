@@ -5,7 +5,6 @@ import { modules } from '../data/course'
 import { drawPaper, questionPool, structuredQuestions } from '../data/exam'
 import { Quiz } from '../components/quiz/Quiz'
 import { Button } from '../components/ui'
-import { ThemeToggle } from '../components/layout/Shell'
 import { rich } from '../lib/rich'
 import { cn } from '../lib/cn'
 
@@ -45,9 +44,6 @@ export function PracticePage() {
             tested on, or take the whole thing.
           </p>
         </div>
-        <span className="hidden lg:block">
-          <ThemeToggle />
-        </span>
       </div>
 
       <div className="mt-7 flex gap-1.5 border-b border-rule pb-3">
@@ -63,7 +59,7 @@ export function PracticePage() {
             className={cn(
               'rounded-lg border px-3.5 py-2 text-left transition-colors',
               tab === key
-                ? 'border-ink bg-brand text-brand-on'
+                ? 'border-violet bg-violet text-white'
                 : 'border-rule bg-surface text-ink-2 hover:border-rule-strong hover:text-ink',
             )}
           >
@@ -95,7 +91,7 @@ export function PracticePage() {
                 className={cn(
                   'rounded-lg border px-3 py-1.5 text-[0.85rem] transition-colors',
                   picked.length === 0
-                    ? 'border-ink bg-brand text-brand-on'
+                    ? 'border-violet bg-violet text-white'
                     : 'border-rule bg-surface text-ink-2 hover:border-rule-strong',
                 )}
               >
@@ -111,7 +107,7 @@ export function PracticePage() {
                     className={cn(
                       'rounded-lg border px-3 py-1.5 text-[0.85rem] transition-colors',
                       on
-                        ? 'border-ink bg-brand text-brand-on'
+                        ? 'border-violet bg-violet text-white'
                         : 'border-rule bg-surface text-ink-2 hover:border-rule-strong hover:text-ink',
                     )}
                     title={`${n} questions`}
@@ -140,7 +136,7 @@ export function PracticePage() {
                   className={cn(
                     'rounded-lg border px-3.5 py-2 text-left transition-colors disabled:opacity-50',
                     length === l.n
-                      ? 'border-ink bg-brand text-brand-on'
+                      ? 'border-violet bg-violet text-white'
                       : 'border-rule bg-surface text-ink-2 hover:border-rule-strong hover:text-ink',
                   )}
                 >
@@ -189,7 +185,7 @@ export function PracticePage() {
                 title={`Practice paper — ${paper.length} questions`}
                 questions={paper.map((p) => p.q)}
               />
-              <details className="mt-2 rounded-xl border border-rule bg-surface px-4 py-3">
+              <details className="mt-2 rounded-2xl border border-rule bg-surface px-4 py-3">
                 <summary className="cursor-pointer text-[0.86rem] text-ink-2 select-none hover:text-ink">
                   Where these questions came from
                 </summary>
@@ -243,7 +239,7 @@ function StructuredList() {
         {structuredQuestions.map((s) => {
           const showing = open === s.id
           return (
-            <li key={s.id} className="overflow-hidden rounded-xl border border-rule bg-surface">
+            <li key={s.id} className="overflow-hidden rounded-2xl border border-rule bg-surface">
               <div className="px-4 py-3.5 sm:px-5">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="font-mono text-[0.7rem] text-ink-3">
